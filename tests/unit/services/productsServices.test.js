@@ -2,9 +2,7 @@ const sinon = require("sinon");
 const { expect } = require("chai");
 const { productsModel } = require("../../../src/models");
 const { productsService } = require("../../../src/services");
-const {
-  allProductsResponse,
-} = require("../services/mock/products.service.mock");
+const { allProductsResponse, newProductResponse } = require("./mock");
 
 describe("Teste da camada Service dos products.", () => {
   afterEach(() => sinon.restore());
@@ -43,6 +41,23 @@ describe("Teste da camada Service dos products.", () => {
       expect(result.status).to.be.equal(404);
       expect(result.type).to.be.equal("PRODUCT_NOT_FOUND");
       expect(result.message).to.be.equal("Product not found");
+    });
+  });
+
+  describe("Testando a função addNewProduct: ", () => {
+    it("Se passado um produto, cadastra e retorna o produto;", async () => {
+      sinon.stub(productsModel, "addNewProduct").resolves(5);
+      sinon.stub(productsModel, "getProductByID").resolves(newProductResponse);
+
+      const result = await productsService.addNewProduct({
+        name: "Óculos do Tony Stark",
+      });
+
+      expect(result.type).to.be.null;
+      expect(result.status).to.be.equal(201);
+      expect(result.message).to.have.keys(["id", "name"]);
+      expect(result.message.id).to.be.equal(5);
+      expect(result.message.name).to.be.equal('Óculos do Tony Stark');
     });
   });
 });

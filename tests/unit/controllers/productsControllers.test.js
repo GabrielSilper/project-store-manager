@@ -2,9 +2,7 @@ const chai = require("chai");
 const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 const { productsService } = require("../../../src/services");
-const {
-  allProductsResponse,
-} = require("../controllers/mock/products.controller.mock");
+const { allProductsResponse, newProductResponse } = require("./mock");
 const { productsController } = require("../../../src/controllers");
 const { expect } = require("chai");
 
@@ -73,6 +71,30 @@ describe("Teste da camada Controller dos products.", () => {
       expect(res.json).to.have.been.calledWith({
         message: "Product not found",
       });
+    });
+  });
+
+  describe("Testando a função addNewProduct: ", () => {
+    it("Se passar um produto, insere no banco e retorna respostas de caso de sucesso;", async () => {
+      sinon.stub(productsService, "addNewProduct").resolves({
+        type: null,
+        status: 201,
+        message: newProductResponse,
+      });
+
+      req = {
+        body: {
+          name: "Óculos do Tony Stark",
+        },
+      };
+      res = {};
+      res.json = sinon.stub().returns(res);
+      res.status = sinon.stub().returns(res);
+
+      await productsController.addNewProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(newProductResponse);
     });
   });
 });

@@ -28,4 +28,14 @@ describe("Teste da camada Model dos products.", () => {
       expect(product).to.have.keys(["id", "name"]);
     });
   });
+
+  describe("Testando a função addNewProduct: ", () => {
+    it("", async () => {
+      sinon.stub(connection, "execute").resolves([{ insertId: 5 }]);
+      const newId = await productsModel.addNewProduct({ name: 'Novo produto' });
+
+      expect(newId).to.be.an('number');
+      expect(newId).to.be.equal(5);
+    });
+  });
 });
