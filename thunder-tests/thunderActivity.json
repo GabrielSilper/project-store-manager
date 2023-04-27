@@ -40,5 +40,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "83735ff9-43f5-4c48-8921-7d5894f9ce2f",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products",
+    "url": "localhost:3001/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-04-27T14:41:43.884Z",
+    "modified": "2023-04-27T14:41:43.884Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Novo Produto\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
