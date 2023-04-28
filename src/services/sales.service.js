@@ -1,5 +1,5 @@
-const camelize = require("camelize");
-const { salesModel, salesProductModel, productsModel } = require("../models");
+const camelize = require('camelize');
+const { salesModel, salesProductModel, productsModel } = require('../models');
 
 // Função auxiliar pra verificar se todos os produtos da lista itemsSold existe.
 // Caso não exista algum produto, retorna um objeto referente as respostas de caso de erro.
@@ -10,12 +10,12 @@ const allProductsExist = async (itemsSold) => {
       const product = await productsModel.getProductByID(productId);
       if (!product) {
         productNotFound = {
-          type: "PRODUCT_NOT_FOUND",
+          type: 'PRODUCT_NOT_FOUND',
           status: 404,
-          message: "Product not found",
+          message: 'Product not found',
         };
       }
-    })
+    }),
   );
   return productNotFound;
 };
@@ -28,8 +28,7 @@ const insertEachItemSold = async (newSaleId, itemsSold) => {
         saleId: newSaleId,
         productId,
         quantity,
-      })
-    )
+      })),
   );
 };
 
@@ -60,7 +59,7 @@ const getAllSales = async () => {
 const getSalesByID = async (id) => {
   const result = await salesProductModel.getSalesByID(id);
   if (result.length < 1) {
-    return { type: "SALE_NOT_FOUND", status: 404, message: "Sale not found" };
+    return { type: 'SALE_NOT_FOUND', status: 404, message: 'Sale not found' };
   }
   const sales = camelize(result);
   return { type: null, status: 200, message: sales };
