@@ -1,10 +1,10 @@
 const sinon = require("sinon");
 const { expect } = require("chai");
 const { productsModel } = require("../../../src/models");
-const { allProductsResponse } = require("./mock/products.model.mock");
+const { allProductsResponse } = require("./mock/");
 const connection = require("../../../src/models/connection");
 
-describe("Teste da camada Model dos products.", () => {
+describe("Teste da camada Model referente a products.", () => {
   afterEach(() => sinon.restore());
 
   describe("Testando a função getAllProducts: ", () => {
@@ -30,7 +30,7 @@ describe("Teste da camada Model dos products.", () => {
   });
 
   describe("Testando a função addNewProduct: ", () => {
-    it("", async () => {
+    it("Se um novo produto é adicionado no banco;", async () => {
       sinon.stub(connection, "execute").resolves([{ insertId: 5 }]);
       const newId = await productsModel.addNewProduct({ name: 'Novo produto' });
 

@@ -8,12 +8,12 @@ const allProductsExist = async (itemsSold) => {
     itemsSold.map(async ({ productId }) => {
       const product = await productsModel.getProductByID(productId);
       if (!product) {
- productNotFound = {
+        productNotFound = {
           type: 'PRODUCT_NOT_FOUND',
           status: 404,
           message: 'Product not found',
-        }; 
-}
+        };
+      }
     }),
   );
   return productNotFound;
@@ -22,7 +22,8 @@ const allProductsExist = async (itemsSold) => {
 // Função auxiliar para inserir todos os produtos da lista itemsSold.
 const insertEachItemSold = async (newSaleId, itemsSold) => {
   await Promise.all(
-    itemsSold.map(({ productId, quantity }) => salesProductModel.addNewSalesProduct({
+    itemsSold.map(({ productId, quantity }) =>
+      salesProductModel.addNewSalesProduct({
         saleId: newSaleId,
         productId,
         quantity,
@@ -48,4 +49,4 @@ const addNewSale = async (itemsSold) => {
   };
 };
 
-module.exports = { addNewSale };
+module.exports = { addNewSale, allProductsExist };
