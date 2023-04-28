@@ -10,6 +10,10 @@ const {
   correctMessage,
   wrongListItemsSold,
   productNotFoundMessage,
+  allSalesResponse,
+  allSalesCamelize,
+  salesByIdResponse,
+  salesByIdCamelize,
 } = require("./mock");
 const { salesService } = require("../../../src/services");
 const { expect } = require("chai");
@@ -49,6 +53,37 @@ describe("Teste da camada Service referente a sales.", () => {
 
       expect(result).to.be.an("object");
       expect(result).to.deep.equal(productNotFoundMessage);
+    });
+  });
+
+  describe("Teste da função getAllSales: ", () => {
+    it("Se retorna a mensagem com todos as vendas e caso de sucesso;", async () => {
+      Sinon.stub(salesProductModel, "getAllSales").resolves(allSalesResponse);
+
+      const { type, status, message } = await salesService.getAllSales();
+      expect(type).to.be.null;
+      expect(status).to.be.equal(200);
+      expect(message).to.deep.equal(allSalesCamelize)
+    });
+  });
+
+  describe("Teste da função getSalesByID: ", () => {
+    it("Se passado um venda existente, retorna a mensagem com caso de sucesso;", async () => {
+      Sinon.stub(salesProductModel, "getSalesByID").resolves(salesByIdResponse);
+
+      const { type, status, message } = await salesService.getSalesByID(1);
+      expect(type).to.be.null;
+      expect(status).to.be.equal(200);
+      expect(message).to.deep.equal(salesByIdCamelize);
+    });
+
+    it("Se passado um venda inexistente, retorna a mensagem com caso de falha;", async () => {
+      Sinon.stub(salesProductModel, "getSalesByID").resolves([]);
+
+      const { type, status, message } = await salesService.getSalesByID(10);
+      expect(type).to.be.equal("SALE_NOT_FOUND");
+      expect(status).to.be.equal(404);
+      expect(message).to.deep.equal("Sale not found");
     });
   });
 });

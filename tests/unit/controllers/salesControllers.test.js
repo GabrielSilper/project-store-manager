@@ -7,16 +7,20 @@ const {
   listItemsSold,
   wrongResolves,
   wrongListItemsSold,
+  allSalesServiceResponse,
+  salesByIdServiceResponse,
+  salesByIdwrongCaseResponse,
 } = require("./mock");
 const { salesController } = require("../../../src/controllers");
+const { it } = require("mocha");
 const { expect } = chai;
 
 chai.use(sinonChai);
 
 describe("Teste da camada Controller referente a sales.", () => {
   afterEach(Sinon.restore);
-  describe("Teste da função addNewSale", () => {
-    it("Se retorna todas as informações referente ao caso de sucesso.", async () => {
+  describe("Teste da função addNewSale: ", () => {
+    it("Se retorna todas as informações referente ao caso de sucesso;", async () => {
       Sinon.stub(salesService, "addNewSale").resolves(correctResolves);
 
       const req = {
@@ -32,7 +36,7 @@ describe("Teste da camada Controller referente a sales.", () => {
       expect(res.json).to.have.been.calledWith(correctResolves.message);
     });
 
-    it("Se retorna todas as informações referente ao caso de falha.", async () => {
+    it("Se retorna todas as informações referente ao caso de falha;", async () => {
       Sinon.stub(salesService, "addNewSale").resolves(wrongResolves);
 
       const req = {
@@ -47,6 +51,74 @@ describe("Teste da camada Controller referente a sales.", () => {
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({
         message: wrongResolves.message,
+      });
+    });
+  });
+
+  describe("Teste da função getAllSales: ", () => {
+    it("Se retorna todas as informações com o caso de sucesso;", async () => {
+      Sinon.stub(salesService, "getAllSales").resolves(allSalesServiceResponse);
+
+      const req = {};
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.getAllSales(req, res);
+
+      expect(res.status).to.have.been.calledWith(
+        allSalesServiceResponse.status
+      );
+      expect(res.json).to.have.been.calledWith(allSalesServiceResponse.message);
+    });
+  });
+
+  describe("Teste da função getSalesByID: ", () => {
+    it("Se retorna todas as informações com o caso de sucesso;", async () => {
+      Sinon.stub(salesService, "getSalesByID").resolves(
+        salesByIdServiceResponse
+      );
+
+      const req = {
+        params: {
+          id: 1,
+        },
+      };
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.getSalesByID(req, res);
+
+      expect(res.status).to.have.been.calledWith(
+        salesByIdServiceResponse.status
+      );
+      expect(res.json).to.have.been.calledWith(
+        salesByIdServiceResponse.message
+      );
+    });
+
+    it("Se retorna todas as informações com o caso de falha;", async () => {
+      Sinon.stub(salesService, "getSalesByID").resolves(
+        salesByIdwrongCaseResponse
+      );
+
+      const req = {
+        params: {
+          id: 456,
+        },
+      };
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.getSalesByID(req, res);
+
+      expect(res.status).to.have.been.calledWith(
+        salesByIdwrongCaseResponse.status
+      );
+      expect(res.json).to.have.been.calledWith({
+        message: salesByIdwrongCaseResponse.message,
       });
     });
   });

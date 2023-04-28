@@ -55,6 +55,48 @@ const wrongResolves = {
   message: "Product not found",
 };
 
+const allSalesServiceResponse = {
+  type: null,
+  status: 200,
+  message: [
+    {
+      saleId: 1,
+      date: "2021-09-09T04:54:29.000Z",
+      productId: 1,
+      quantity: 2,
+    },
+    {
+      saleId: 1,
+      date: "2021-09-09T04:54:54.000Z",
+      productId: 2,
+      quantity: 2,
+    },
+  ],
+};
+
+const salesByIdServiceResponse = {
+  type: null,
+  status: 200,
+  message: [
+    {
+      date: "2021-09-09T04:54:29.000Z",
+      productId: 1,
+      quantity: 2,
+    },
+    {
+      date: "2021-09-09T04:54:54.000Z",
+      productId: 2,
+      quantity: 2,
+    },
+  ],
+};
+
+const salesByIdwrongCaseResponse = {
+  type: "SALE_NOT_FOUND",
+  status: 404,
+  message: "Sale not found",
+};
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -62,4 +104,7 @@ module.exports = {
   wrongResolves,
   listItemsSold,
   wrongListItemsSold,
+  allSalesServiceResponse,
+  salesByIdServiceResponse,
+  salesByIdwrongCaseResponse,
 };

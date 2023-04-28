@@ -4,9 +4,38 @@ const allProductsResponse = [
   { id: 3, name: "Escudo do Capitão América" },
 ];
 
-const getSalesResponse = [
-  { sale_id: 1, product_id: 1, quantity: 5 },
-  { sale_id: 1, product_id: 2, quantity: 10 },
+const salesByIdResponse = [
+  {
+    product_id: 1,
+    quantity: 5,
+    date: "2023-04-28T20:09:11.000Z",
+  },
+  {
+    product_id: 2,
+    quantity: 10,
+    date: "2023-04-28T20:09:11.000Z",
+  },
 ];
 
-module.exports = { allProductsResponse, getSalesResponse };
+const allSalesResponse = [
+  {
+    sale_id: 1,
+    product_id: 1,
+    quantity: 5,
+    date: "2023-04-28T20:09:11.000Z",
+  },
+  {
+    sale_id: 1,
+    product_id: 2,
+    quantity: 10,
+    date: "2023-04-28T20:09:11.000Z",
+  },
+  {
+    sale_id: 2,
+    product_id: 3,
+    quantity: 15,
+    date: "2023-04-28T20:09:11.000Z",
+  },
+];
+
+module.exports = { allProductsResponse, salesByIdResponse, allSalesResponse };

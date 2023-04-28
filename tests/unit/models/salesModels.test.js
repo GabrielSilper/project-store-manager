@@ -2,7 +2,7 @@ const Sinon = require("sinon");
 const connection = require("../../../src/models/connection");
 const { salesModel, salesProductModel } = require("../../../src/models");
 const { expect } = require("chai");
-const { getSalesResponse } = require("./mock");
+const { salesByIdResponse, allSalesResponse } = require("./mock");
 
 describe("Teste da camada Model referente a sales.", () => {
   afterEach(Sinon.restore);
@@ -36,15 +36,32 @@ describe("Teste da camada Model referente a salesProducts.", () => {
     });
   });
 
-  describe("Teste da função getSalesProductsByID: ", () => {
-    it("Se passado um id de uma venda, retorna todos os produtos relacionados a venda; ", async () => {
-      Sinon.stub(connection, "execute").resolves([getSalesResponse]);
+  describe("Teste da função getSalesByID: ", () => {
+    it("Se passado um id, retorna as venda relacionadas; ", async () => {
+      Sinon.stub(connection, "execute").resolves([salesByIdResponse]);
 
-      const sales = await salesProductModel.getSalesProductsByID(1);
+      const sales = await salesProductModel.getSalesByID(1);
 
       expect(sales).to.be.an("array");
       expect(sales).to.have.length(2);
-      expect(sales[0]).to.have.keys(["sale_id", "product_id", "quantity"]);
+      expect(sales[0]).to.have.keys(["date", "product_id", "quantity"]);
+    });
+  });
+
+  describe("Teste da função getAllSales: ", () => {
+    it("Se retorna todos as vendas; ", async () => {
+      Sinon.stub(connection, "execute").resolves([allSalesResponse]);
+
+      const sales = await salesProductModel.getAllSales();
+
+      expect(sales).to.be.an("array");
+      expect(sales).to.have.length(3);
+      expect(sales[0]).to.have.keys([
+        "sale_id",
+        "date",
+        "product_id",
+        "quantity",
+      ]);
     });
   });
 });
