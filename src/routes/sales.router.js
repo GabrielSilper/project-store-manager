@@ -4,6 +4,9 @@ const { validateSaleId } = require('../middlewares/sales.middleware');
 
 const salesRouter = express.Router();
 
+salesRouter.get('/', salesController.getAllSales);
+salesRouter.get('/:id', salesController.getSalesByID);
+
 salesRouter.use(validateSaleId);
 salesRouter.post('/', salesController.addNewSale);
 
