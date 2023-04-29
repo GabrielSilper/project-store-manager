@@ -2,7 +2,7 @@ const Sinon = require("sinon");
 const connection = require("../../../src/models/connection");
 const { salesModel, salesProductModel } = require("../../../src/models");
 const { expect } = require("chai");
-const { salesByIdResponse, allSalesResponse } = require("./mock");
+const { salesByIdResponse, allSalesResponse, saleToUpdate } = require("./mock");
 
 describe("Teste da camada Model referente a sales.", () => {
   afterEach(Sinon.restore);
@@ -37,7 +37,7 @@ describe("Teste da camada Model referente a salesProducts.", () => {
   });
 
   describe("Teste da função getSalesByID: ", () => {
-    it("Se passado um id, retorna as venda relacionadas; ", async () => {
+    it("Se passado um id, retorna as vendas relacionadas; ", async () => {
       Sinon.stub(connection, "execute").resolves([salesByIdResponse]);
 
       const sales = await salesProductModel.getSalesByID(1);
@@ -73,6 +73,17 @@ describe("Teste da camada Model referente a salesProducts.", () => {
 
       expect(affectedRows).to.be.an("number");
       expect(affectedRows).to.be.equal(1);
+    });
+  });
+
+  describe("Teste da função updateSale: ", () => {
+    it("Se passado saleId, productId e quantity, atualiza as vendas relacionadas; ", async () => {
+      Sinon.stub(connection, "execute").resolves([{ changedRows: 1 }]);
+
+      const changedRows = await salesProductModel.updateSale(saleToUpdate);
+
+      expect(changedRows).to.be.an("number");
+      expect(changedRows).to.be.equal(1);
     });
   });
 });

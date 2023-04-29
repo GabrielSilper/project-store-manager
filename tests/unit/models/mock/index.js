@@ -38,4 +38,6 @@ const allSalesResponse = [
   },
 ];
 
-module.exports = { allProductsResponse, salesByIdResponse, allSalesResponse };
+const saleToUpdate = { saleId: 1 , productId: 1 , quantity: 1000 };
+
+module.exports = { allProductsResponse, salesByIdResponse, allSalesResponse, saleToUpdate };

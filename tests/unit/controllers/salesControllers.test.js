@@ -12,6 +12,11 @@ const {
   salesByIdwrongCaseResponse,
   reqIdWrong,
   reqIdCorrect,
+  updateCorrect,
+  reqUpdateCorrect,
+  listItemsUpdated,
+  reqUpdateWrong,
+  updateWrong,
 } = require("./mock");
 const { salesController } = require("../../../src/controllers");
 const { it } = require("mocha");
@@ -152,4 +157,34 @@ describe("Teste da camada Controller referente a sales.", () => {
       });
     });
   });
+
+  describe("Teste da função updateSales: ", () => {
+    it('Se retorna todas as informações em caso de sucesso;', async () => {
+      Sinon.stub(salesService, 'updateSale').resolves(updateCorrect);
+
+      const req = reqUpdateCorrect;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.updateSale(req, res);
+      
+      expect(res.status).to.have.been.calledWith(updateCorrect.status);
+      expect(res.json).to.have.been.calledWith(updateCorrect.message);
+    })
+
+    it("Se retorna todas as informações em caso de falha;", async () => {
+      Sinon.stub(salesService, "updateSale").resolves(updateWrong);
+
+      const req = reqUpdateWrong;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.updateSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(updateWrong.status);
+      expect(res.json).to.have.been.calledWith({ message: updateWrong.message });
+    });
+  })
 });

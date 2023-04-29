@@ -118,6 +118,46 @@ const reqIdWrong = {
   },
 };
 
+const listItemsUpdated = [
+  {
+    productId: 1,
+    quantity: 100,
+  },
+  {
+    productId: 2,
+    quantity: 500,
+  },
+];
+
+const updateCorrect = {
+  type: null,
+  status: 200,
+  message: {
+    saleId: 1,
+    itemsUpdated: listItemsUpdated,
+  },
+};
+
+const updateWrong = {
+  type: 'SALE_NOT_FOUND',
+  status: 404,
+  message: "Sale not found",
+};
+
+const reqUpdateCorrect = {
+  params: {
+    id: 1,
+  },
+  body: listItemsUpdated,
+};
+
+const reqUpdateWrong = {
+  params: {
+    id: 45,
+  },
+  body: listItemsUpdated,
+};
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -130,5 +170,10 @@ module.exports = {
   salesByIdwrongCaseResponse,
   updateProductResponse,
   reqIdWrong,
-  reqIdCorrect
+  reqIdCorrect,
+  listItemsUpdated,
+  updateCorrect,
+  reqUpdateCorrect,
+  reqUpdateWrong,
+  updateWrong,
 };

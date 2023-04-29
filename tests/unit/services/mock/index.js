@@ -108,6 +108,28 @@ const updatedProductResponse = { id: 1, name: "Mjolnir" };
 
 const productWrongId = { id: 34, name: "Não existo" };
 
+const listItemsUpdated = [
+  {
+    productId: 1,
+    quantity: 30,
+  },
+  {
+    productId: 2,
+    quantity: 50,
+  },
+];
+
+const wrongListProduct = [
+  {
+    productId: 345,
+    quantity: 30,
+  },
+  {
+    productId: 543,
+    quantity: 50,
+  },
+];
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -122,4 +144,6 @@ module.exports = {
   productByIdResponse,
   updatedProductResponse,
   productWrongId,
+  listItemsUpdated,
+  wrongListProduct
 };
