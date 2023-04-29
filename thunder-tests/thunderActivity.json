@@ -92,5 +92,81 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "681d014e-f4bb-42a9-81bc-81c532a850f7",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/56",
+    "url": "localhost:3001/products/56",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-04-28T23:52:15.672Z",
+    "modified": "2023-04-28T23:59:27.581Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Olha eu aqui\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "0b296db1-2f44-40e5-82f0-239898d55f44",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/3",
+    "url": "localhost:3001/products/3",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-04-28T23:59:43.729Z",
+    "modified": "2023-04-28T23:59:43.729Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Olha eu aqui\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "259963d4-a8ef-4a3d-8b0a-e365fafa4d1a",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/45",
+    "url": "localhost:3001/products/45",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-04-29T00:02:22.035Z",
+    "modified": "2023-04-29T00:02:22.035Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Olha eu aqui\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f77bea11-32c2-41cf-b175-08e891c54e9c",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/2",
+    "url": "localhost:3001/products/2",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-04-29T00:02:28.855Z",
+    "modified": "2023-04-29T00:06:26.010Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"qui\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
