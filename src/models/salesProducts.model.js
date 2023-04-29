@@ -39,4 +39,12 @@ const getAllSales = async () => {
   return sales;
 };
 
-module.exports = { addNewSalesProduct, getSalesByID, getAllSales };
+const deleteSale = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = (?)',
+    [id],
+  );
+  return affectedRows;
+};
+
+module.exports = { addNewSalesProduct, getSalesByID, getAllSales, deleteSale };
