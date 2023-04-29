@@ -7,6 +7,8 @@ const {
   newProductResponse,
   updateProductResponse,
   wrongResolves,
+  reqIdCorrect,
+  reqIdWrong,
 } = require("./mock");
 const { productsController } = require("../../../src/controllers");
 const { expect } = require("chai");
@@ -41,11 +43,7 @@ describe("Teste da camada Controller dos products.", () => {
         message: allProductsResponse[0],
       });
 
-      const req = {
-        params: {
-          id: 1,
-        },
-      };
+      const req = reqIdCorrect;
       const res = {};
       res.json = Sinon.stub().returns(res);
       res.status = Sinon.stub().returns(res);
@@ -106,14 +104,14 @@ describe("Teste da camada Controller dos products.", () => {
   });
 
   describe("Testando a função updateProduct: ", () => {
-    it("Se passar um id existente, vai retornar um resposta com caso de sucesso.", async () => {
+    it("Se passar um id existente, vai retornar um resposta com caso de sucesso;", async () => {
       Sinon.stub(productsService, "updateProduct").resolves(
         updateProductResponse
       );
 
       const req = {
         params: {
-          id: 3
+          id: 3,
         },
         body: {
           name: "Produto 100% atualizado",
@@ -129,10 +127,8 @@ describe("Teste da camada Controller dos products.", () => {
       expect(res.status).to.have.been.calledWith(updateProductResponse.status);
     });
 
-    it("Se passar um id inexistente, vai retornar um resposta com caso de falha.", async () => {
-      Sinon.stub(productsService, "updateProduct").resolves(
-        wrongResolves
-      );
+    it("Se passar um id inexistente, vai retornar um resposta com caso de falha;", async () => {
+      Sinon.stub(productsService, "updateProduct").resolves(wrongResolves);
 
       const req = {
         params: {
@@ -148,7 +144,42 @@ describe("Teste da camada Controller dos products.", () => {
 
       await productsController.updateProduct(req, res);
 
-      expect(res.json).to.have.been.calledWith({ message: wrongResolves.message});
+      expect(res.json).to.have.been.calledWith({
+        message: wrongResolves.message,
+      });
+      expect(res.status).to.have.been.calledWith(wrongResolves.status);
+    });
+  });
+
+  describe("Testando a função deleteProduct: ", () => {
+    it("Se passar um id existente, vai retornar um resposta com caso de sucesso;", async () => {
+      Sinon.stub(productsService, "deleteProduct").resolves({
+        type: null,
+        status: 204,
+      });
+
+      const req = reqIdCorrect;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await productsController.deleteProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith();
+    });
+    it("Se passar um id inexistente, vai retornar um resposta com caso de falha;", async () => {
+      Sinon.stub(productsService, "deleteProduct").resolves(wrongResolves);
+
+      const req = reqIdWrong;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await productsController.deleteProduct(req, res);
+      expect(res.json).to.have.been.calledWith({
+        message: wrongResolves.message,
+      });
       expect(res.status).to.have.been.calledWith(wrongResolves.status);
     });
   });

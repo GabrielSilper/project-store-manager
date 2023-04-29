@@ -39,13 +39,26 @@ describe("Teste da camada Model referente a products.", () => {
     });
   });
 
-  describe("Testando a função : ", () => {
+  describe("Testando a função updateProduct: ", () => {
     it("Se produto é atualizado no banco;", async () => {
       sinon.stub(connection, "execute").resolves([{ changedRows: 1 }]);
-      const changeRows = await productsModel.updateProduct({ name: "Produto Atualizado" });
+      const changeRows = await productsModel.updateProduct({
+        name: "Produto Atualizado",
+      });
 
       expect(changeRows).to.be.an("number");
       expect(changeRows).to.be.equal(1);
+    });
+  });
+
+  describe("Teste da função deleteProduct: ", () => {
+    it("Se o produto é deletado do banco; ", async () => {
+      sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+
+      const affectedRows = await productsModel.deleteProduct(1);
+
+      expect(affectedRows).to.be.an("number");
+      expect(affectedRows).to.be.equal(1);
     });
   });
 });

@@ -106,6 +106,18 @@ const updateProductResponse = {
   },
 };
 
+const reqIdCorrect = {
+  params: {
+    id: 1,
+  },
+};
+
+const reqIdWrong = {
+  params: {
+    id: 99,
+  },
+};
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -116,5 +128,7 @@ module.exports = {
   allSalesServiceResponse,
   salesByIdServiceResponse,
   salesByIdwrongCaseResponse,
-  updateProductResponse
+  updateProductResponse,
+  reqIdWrong,
+  reqIdCorrect
 };

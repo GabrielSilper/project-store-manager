@@ -64,4 +64,15 @@ describe("Teste da camada Model referente a salesProducts.", () => {
       ]);
     });
   });
+
+  describe("Teste da função deleteSale: ", () => {
+    it("Se as vendas são deletadas do banco; ", async () => {
+      Sinon.stub(connection, "execute").resolves([{ affectedRows: 1}]);
+
+      const affectedRows = await salesProductModel.deleteSale(1);
+
+      expect(affectedRows).to.be.an("number");
+      expect(affectedRows).to.be.equal(1);
+    });
+  });
 });

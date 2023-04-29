@@ -95,7 +95,30 @@ describe("Teste da camada Service dos products.", () => {
       );
 
       expect(status).to.be.equal(404);
-      expect(type).to.be.equal('PRODUCT_NOT_FOUND');
+      expect(type).to.be.equal("PRODUCT_NOT_FOUND");
+      expect(message).to.be.equal("Product not found");
+    });
+  });
+
+  describe("Testando a função deleteProduct: ", () => {
+    it("Se passado um id existente, retorna o produto atualizado e uma mensagem de sucesso;", async () => {
+      Sinon.stub(productsModel, "getProductByID").resolves(productByIdResponse);
+
+      Sinon.stub(productsModel, "deleteProduct").resolves(1);
+
+      const { status, type } = await productsService.deleteProduct(1);
+
+      expect(type).to.be.null;
+      expect(status).to.be.equal(204);
+    });
+
+    it("Se passado um id inexistente, retorna uma mensagem de falha;", async () => {
+      Sinon.stub(productsModel, "getProductByID").resolves(undefined);
+
+      const { message, status, type } = await productsService.deleteProduct(34);
+
+      expect(status).to.be.equal(404);
+      expect(type).to.be.equal("PRODUCT_NOT_FOUND");
       expect(message).to.be.equal("Product not found");
     });
   });

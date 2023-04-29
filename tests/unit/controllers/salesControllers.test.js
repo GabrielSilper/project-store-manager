@@ -10,6 +10,8 @@ const {
   allSalesServiceResponse,
   salesByIdServiceResponse,
   salesByIdwrongCaseResponse,
+  reqIdWrong,
+  reqIdCorrect,
 } = require("./mock");
 const { salesController } = require("../../../src/controllers");
 const { it } = require("mocha");
@@ -79,11 +81,7 @@ describe("Teste da camada Controller referente a sales.", () => {
         salesByIdServiceResponse
       );
 
-      const req = {
-        params: {
-          id: 1,
-        },
-      };
+      const req = reqIdCorrect;
       const res = {};
       res.json = Sinon.stub().returns(res);
       res.status = Sinon.stub().returns(res);
@@ -103,17 +101,49 @@ describe("Teste da camada Controller referente a sales.", () => {
         salesByIdwrongCaseResponse
       );
 
-      const req = {
-        params: {
-          id: 456,
-        },
-      };
+      const req = reqIdWrong;
       const res = {};
       res.json = Sinon.stub().returns(res);
       res.status = Sinon.stub().returns(res);
 
       await salesController.getSalesByID(req, res);
 
+      expect(res.status).to.have.been.calledWith(
+        salesByIdwrongCaseResponse.status
+      );
+      expect(res.json).to.have.been.calledWith({
+        message: salesByIdwrongCaseResponse.message,
+      });
+    });
+  });
+
+  describe("Teste da função deleteSales: ", () => {
+    it("Se retorna todas as informações com o caso de sucesso;", async () => {
+      Sinon.stub(salesService, "deleteSale").resolves({
+        type: null,
+        status: 204,
+      });
+
+      const req = reqIdCorrect;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await salesController.deleteSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith();
+    });
+
+    it("Se retorna todas as informações com o caso de falha;", async () => {
+      Sinon.stub(salesService, "deleteSale").resolves(
+        salesByIdwrongCaseResponse
+      );
+      const req = reqIdWrong;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+      await salesController.deleteSale(req, res);
       expect(res.status).to.have.been.calledWith(
         salesByIdwrongCaseResponse.status
       );

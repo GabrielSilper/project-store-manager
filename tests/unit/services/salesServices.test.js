@@ -86,4 +86,24 @@ describe("Teste da camada Service referente a sales.", () => {
       expect(message).to.deep.equal("Sale not found");
     });
   });
+
+  describe("Teste da função deleteSale: ", () => {
+    it("Se passado um venda existente, retorna a mensagem com caso de sucesso;", async () => {
+      Sinon.stub(salesProductModel, "getSalesByID").resolves(salesByIdResponse);
+      Sinon.stub(salesProductModel, "deleteSale").resolves(1);
+
+      const { type, status } = await salesService.deleteSale(1);
+      expect(type).to.be.null;
+      expect(status).to.be.equal(204);
+    });
+
+    it("Se passado um venda inexistente, retorna a mensagem com caso de falha;", async () => {
+      Sinon.stub(salesProductModel, "getSalesByID").resolves([]);
+
+      const { type, status, message } = await salesService.deleteSale(10);
+      expect(type).to.be.equal("SALE_NOT_FOUND");
+      expect(status).to.be.equal(404);
+      expect(message).to.deep.equal("Sale not found");
+    });
+   })
 });
