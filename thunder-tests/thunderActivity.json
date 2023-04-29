@@ -432,5 +432,79 @@
       }
     ],
     "tests": []
+  },
+  {
+    "_id": "8a92abf4-bb56-4e32-98d4-6e8ac2cae1a1",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/search",
+    "url": "localhost:3001/products/search",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-04-29T22:31:08.084Z",
+    "modified": "2023-04-29T22:31:08.084Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "990773fc-9f4d-4f42-ae34-a940d347f9e8",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/search?q",
+    "url": "localhost:3001/products/search?q",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-04-29T22:31:16.897Z",
+    "modified": "2023-04-29T22:31:16.897Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "e4052c61-4edf-4557-8b74-bff52a938a41",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/search?q=t",
+    "url": "localhost:3001/products/search?q=t",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-04-29T22:33:32.645Z",
+    "modified": "2023-04-29T22:33:32.645Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "t",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "ab04c60d-7638-4ef7-be27-ae6cad841306",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/products/search?q=de",
+    "url": "localhost:3001/products/search?q=de",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-04-29T22:33:53.882Z",
+    "modified": "2023-04-29T22:33:53.882Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "de",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

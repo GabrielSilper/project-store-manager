@@ -9,6 +9,8 @@ const {
   wrongResolves,
   reqIdCorrect,
   reqIdWrong,
+  getTermCorrect,
+  reqTermCorrect,
 } = require("./mock");
 const { productsController } = require("../../../src/controllers");
 const { expect } = require("chai");
@@ -181,6 +183,22 @@ describe("Teste da camada Controller dos products.", () => {
         message: wrongResolves.message,
       });
       expect(res.status).to.have.been.calledWith(wrongResolves.status);
+    });
+  });
+
+  describe("Testando a função deleteProduct: ", () => {
+    it("Receber o termo 'de' e retorna a resposta com caso de sucesso;", async () => {
+      Sinon.stub(productsService, "getProductByTerm").resolves(getTermCorrect);
+
+      const req = reqTermCorrect;
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await productsController.getProductByTerm(req, res);
+
+      expect(res.status).to.have.been.calledWith(getTermCorrect.status);
+      expect(res.json).to.have.been.calledWith(getTermCorrect.message);
     });
   });
 });

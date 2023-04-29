@@ -130,6 +130,11 @@ const wrongListProduct = [
   },
 ];
 
+const termResponse = [
+  { id: 1, name: "Martelo de Thor" },
+  { id: 2, name: "Traje de encolhimento" },
+];
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -145,5 +150,6 @@ module.exports = {
   updatedProductResponse,
   productWrongId,
   listItemsUpdated,
-  wrongListProduct
+  wrongListProduct,
+  termResponse,
 };

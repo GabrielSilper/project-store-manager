@@ -38,6 +38,17 @@ const allSalesResponse = [
   },
 ];
 
-const saleToUpdate = { saleId: 1 , productId: 1 , quantity: 1000 };
+const termResponse = [
+  { id: 1, name: "Martelo de Thor" },
+  { id: 2, name: "Traje de encolhimento" },
+];
 
-module.exports = { allProductsResponse, salesByIdResponse, allSalesResponse, saleToUpdate };
+const saleToUpdate = { saleId: 1, productId: 1, quantity: 1000 };
+
+module.exports = {
+  allProductsResponse,
+  salesByIdResponse,
+  allSalesResponse,
+  saleToUpdate,
+  termResponse
+};

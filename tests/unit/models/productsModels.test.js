@@ -1,7 +1,7 @@
 const sinon = require("sinon");
 const { expect } = require("chai");
 const { productsModel } = require("../../../src/models");
-const { allProductsResponse } = require("./mock/");
+const { allProductsResponse, termResponse } = require("./mock/");
 const connection = require("../../../src/models/connection");
 
 describe("Teste da camada Model referente a products.", () => {
@@ -59,6 +59,18 @@ describe("Teste da camada Model referente a products.", () => {
 
       expect(affectedRows).to.be.an("number");
       expect(affectedRows).to.be.equal(1);
+    });
+  });
+
+  describe("Teste da função getProductByTerm: ", () => {
+    it("Se uma lista de produtos é retornado do banco; ", async () => {
+      sinon.stub(connection, "execute").resolves([termResponse]);
+
+      const result = await productsModel.getProductByTerm('de');
+
+      expect(result).to.be.an("array");
+      expect(result).to.have.length(2);
+      expect(result[0]).to.deep.equal(termResponse[0]);
     });
   });
 });

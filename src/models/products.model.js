@@ -21,11 +21,8 @@ const getProductByTerm = async (term) => {
     'SELECT * FROM StoreManager.products WHERE name LIKE CONCAT("%", ?, "%")',
     [term],
   );
-  console.log(products);
   return products;
 };
-
-getProductByTerm('Mar');
 
 const addNewProduct = async ({ name }) => {
   const [{ insertId }] = await connection.execute(

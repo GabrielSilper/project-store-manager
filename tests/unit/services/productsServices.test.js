@@ -8,6 +8,7 @@ const {
   productByIdResponse,
   updatedProductResponse,
   productWrongId,
+  termResponse,
 } = require("./mock");
 const Sinon = require("sinon");
 
@@ -120,6 +121,20 @@ describe("Teste da camada Service dos products.", () => {
       expect(status).to.be.equal(404);
       expect(type).to.be.equal("PRODUCT_NOT_FOUND");
       expect(message).to.be.equal("Product not found");
+    });
+  });
+
+  describe("Teste da função getProductByTerm: ", () => {
+    it("Retorno do caso de sucesso;", async () => {
+      Sinon.stub(productsModel, "getProductByTerm").resolves(termResponse);
+
+      const { message, status, type } = await productsService.getProductByTerm(
+        "de"
+      );
+
+      expect(type).to.be.null;
+      expect(status).to.be.equal(200);
+      expect(message).to.deep.equal(termResponse);
     });
   });
 });

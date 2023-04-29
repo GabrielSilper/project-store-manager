@@ -139,7 +139,7 @@ const updateCorrect = {
 };
 
 const updateWrong = {
-  type: 'SALE_NOT_FOUND',
+  type: "SALE_NOT_FOUND",
   status: 404,
   message: "Sale not found",
 };
@@ -156,6 +156,21 @@ const reqUpdateWrong = {
     id: 45,
   },
   body: listItemsUpdated,
+};
+
+const reqTermCorrect = {
+  query: {
+    q: "de",
+  },
+};
+
+const getTermCorrect = {
+  type: null,
+  status: 200,
+  message: [
+    { id: 1, name: "Martelo de Thor" },
+    { id: 2, name: "Traje de encolhimento" },
+  ],
 };
 
 module.exports = {
@@ -176,4 +191,6 @@ module.exports = {
   reqUpdateCorrect,
   reqUpdateWrong,
   updateWrong,
+  reqTermCorrect,
+  getTermCorrect,
 };
