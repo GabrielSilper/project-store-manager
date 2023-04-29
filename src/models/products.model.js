@@ -24,7 +24,7 @@ const addNewProduct = async ({ name }) => {
 };
 
 const updateProduct = async ({ id, name }) => {
-  await connection.execute(
+  const [{ changedRows }] = await connection.execute(
     `
     UPDATE StoreManager.products
     SET name = (?)
@@ -32,7 +32,7 @@ const updateProduct = async ({ id, name }) => {
   `,
     [name, id],
   );
-  return true;
+  return changedRows;
 };
 
 module.exports = {

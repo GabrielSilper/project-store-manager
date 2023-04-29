@@ -97,6 +97,15 @@ const salesByIdwrongCaseResponse = {
   message: "Sale not found",
 };
 
+const updateProductResponse = {
+  type: null,
+  status: 200,
+  message: {
+    id: 3,
+    name: "Novo Produto",
+  },
+};
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -107,4 +116,5 @@ module.exports = {
   allSalesServiceResponse,
   salesByIdServiceResponse,
   salesByIdwrongCaseResponse,
+  updateProductResponse
 };

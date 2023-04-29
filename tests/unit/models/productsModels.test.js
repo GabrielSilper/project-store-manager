@@ -38,4 +38,14 @@ describe("Teste da camada Model referente a products.", () => {
       expect(newId).to.be.equal(5);
     });
   });
+
+  describe("Testando a função : ", () => {
+    it("Se produto é atualizado no banco;", async () => {
+      sinon.stub(connection, "execute").resolves([{ changedRows: 1 }]);
+      const changeRows = await productsModel.updateProduct({ name: "Produto Atualizado" });
+
+      expect(changeRows).to.be.an("number");
+      expect(changeRows).to.be.equal(1);
+    });
+  });
 });

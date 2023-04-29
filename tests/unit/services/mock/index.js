@@ -102,6 +102,12 @@ const salesByIdCamelize = [
   { productId: 2, quantity: 10, date: "2023-04-28T20:09:11.000Z" },
 ];
 
+const productByIdResponse = { id: 1, name: "Martelo de Thor" };
+
+const updatedProductResponse = { id: 1, name: "Mjolnir" };
+
+const productWrongId = { id: 34, name: "Não existo" };
+
 module.exports = {
   allProductsResponse,
   newProductResponse,
@@ -112,5 +118,8 @@ module.exports = {
   allSalesResponse,
   allSalesCamelize,
   salesByIdResponse,
-  salesByIdCamelize
+  salesByIdCamelize,
+  productByIdResponse,
+  updatedProductResponse,
+  productWrongId,
 };

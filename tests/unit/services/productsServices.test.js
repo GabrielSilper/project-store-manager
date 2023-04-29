@@ -2,7 +2,14 @@ const sinon = require("sinon");
 const { expect } = require("chai");
 const { productsModel } = require("../../../src/models");
 const { productsService } = require("../../../src/services");
-const { allProductsResponse, newProductResponse } = require("./mock");
+const {
+  allProductsResponse,
+  newProductResponse,
+  productByIdResponse,
+  updatedProductResponse,
+  productWrongId,
+} = require("./mock");
+const Sinon = require("sinon");
 
 describe("Teste da camada Service dos products.", () => {
   afterEach(() => sinon.restore());
@@ -57,7 +64,39 @@ describe("Teste da camada Service dos products.", () => {
       expect(result.status).to.be.equal(201);
       expect(result.message).to.have.keys(["id", "name"]);
       expect(result.message.id).to.be.equal(5);
-      expect(result.message.name).to.be.equal('Óculos do Tony Stark');
+      expect(result.message.name).to.be.equal("Óculos do Tony Stark");
+    });
+  });
+
+  describe("Testando a função updateProduct: ", () => {
+    it("Se passado um id existente, retorna o produto atualizado e uma mensagem de sucesso;", async () => {
+      Sinon.stub(productsModel, "getProductByID")
+        .onFirstCall()
+        .resolves(productByIdResponse)
+        .onSecondCall()
+        .resolves(updatedProductResponse);
+
+      Sinon.stub(productsModel, "updateProduct").resolves();
+
+      const { message, status, type } = await productsService.updateProduct(
+        productByIdResponse
+      );
+
+      expect(type).to.be.null;
+      expect(status).to.be.equal(200);
+      expect(message).to.deep.equal(updatedProductResponse);
+    });
+
+    it("Se passado um id inexistente, retorna uma mensagem de falha;", async () => {
+      Sinon.stub(productsModel, "getProductByID").resolves(undefined);
+
+      const { message, status, type } = await productsService.updateProduct(
+        productWrongId
+      );
+
+      expect(status).to.be.equal(404);
+      expect(type).to.be.equal('PRODUCT_NOT_FOUND');
+      expect(message).to.be.equal("Product not found");
     });
   });
 });

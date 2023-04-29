@@ -1,25 +1,30 @@
 const chai = require("chai");
-const sinon = require("sinon");
+const Sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 const { productsService } = require("../../../src/services");
-const { allProductsResponse, newProductResponse } = require("./mock");
+const {
+  allProductsResponse,
+  newProductResponse,
+  updateProductResponse,
+  wrongResolves,
+} = require("./mock");
 const { productsController } = require("../../../src/controllers");
 const { expect } = require("chai");
 
 chai.use(sinonChai);
 
 describe("Teste da camada Controller dos products.", () => {
-  afterEach(() => sinon.restore());
+  afterEach(() => Sinon.restore());
   describe("Testando a função getAllProducts: ", () => {
     it("Se retorna todas as informações de sucesso;", async () => {
-      sinon
-        .stub(productsService, "getAllProducts")
-        .resolves(allProductsResponse);
+      Sinon.stub(productsService, "getAllProducts").resolves(
+        allProductsResponse
+      );
 
       const req = {};
       const res = {};
-      res.json = sinon.stub().returns(res);
-      res.status = sinon.stub().returns(res);
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
 
       await productsController.getAllProducts(req, res);
 
@@ -30,9 +35,11 @@ describe("Teste da camada Controller dos products.", () => {
 
   describe("Testando a função getProductByID: ", () => {
     it("Se passar 1 no id params, retorna respostas de caso de sucesso;", async () => {
-      sinon
-        .stub(productsService, "getProductByID")
-        .resolves({ type: null, status: 200, message: allProductsResponse[0] });
+      Sinon.stub(productsService, "getProductByID").resolves({
+        type: null,
+        status: 200,
+        message: allProductsResponse[0],
+      });
 
       const req = {
         params: {
@@ -40,8 +47,8 @@ describe("Teste da camada Controller dos products.", () => {
         },
       };
       const res = {};
-      res.json = sinon.stub().returns(res);
-      res.status = sinon.stub().returns(res);
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
 
       await productsController.getProductByID(req, res);
 
@@ -50,7 +57,7 @@ describe("Teste da camada Controller dos products.", () => {
     });
 
     it("Se passar um id inexistente no params, retorna respostas de caso de falha;", async () => {
-      sinon.stub(productsService, "getProductByID").resolves({
+      Sinon.stub(productsService, "getProductByID").resolves({
         type: "PRODUCT_NOT_FOUND",
         status: 404,
         message: "Product not found",
@@ -62,8 +69,8 @@ describe("Teste da camada Controller dos products.", () => {
         },
       };
       const res = {};
-      res.json = sinon.stub().returns(res);
-      res.status = sinon.stub().returns(res);
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
 
       await productsController.getProductByID(req, res);
 
@@ -76,7 +83,7 @@ describe("Teste da camada Controller dos products.", () => {
 
   describe("Testando a função addNewProduct: ", () => {
     it("Se passar um produto, insere no banco e retorna respostas de caso de sucesso;", async () => {
-      sinon.stub(productsService, "addNewProduct").resolves({
+      Sinon.stub(productsService, "addNewProduct").resolves({
         type: null,
         status: 201,
         message: newProductResponse,
@@ -88,13 +95,61 @@ describe("Teste da camada Controller dos products.", () => {
         },
       };
       res = {};
-      res.json = sinon.stub().returns(res);
-      res.status = sinon.stub().returns(res);
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
 
       await productsController.addNewProduct(req, res);
 
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(newProductResponse);
+    });
+  });
+
+  describe("Testando a função updateProduct: ", () => {
+    it("Se passar um id existente, vai retornar um resposta com caso de sucesso.", async () => {
+      Sinon.stub(productsService, "updateProduct").resolves(
+        updateProductResponse
+      );
+
+      const req = {
+        params: {
+          id: 3
+        },
+        body: {
+          name: "Produto 100% atualizado",
+        },
+      };
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await productsController.updateProduct(req, res);
+
+      expect(res.json).to.have.been.calledWith(updateProductResponse.message);
+      expect(res.status).to.have.been.calledWith(updateProductResponse.status);
+    });
+
+    it("Se passar um id inexistente, vai retornar um resposta com caso de falha.", async () => {
+      Sinon.stub(productsService, "updateProduct").resolves(
+        wrongResolves
+      );
+
+      const req = {
+        params: {
+          id: 456,
+        },
+        body: {
+          name: "Produto 100% desatualizado",
+        },
+      };
+      const res = {};
+      res.json = Sinon.stub().returns(res);
+      res.status = Sinon.stub().returns(res);
+
+      await productsController.updateProduct(req, res);
+
+      expect(res.json).to.have.been.calledWith({ message: wrongResolves.message});
+      expect(res.status).to.have.been.calledWith(wrongResolves.status);
     });
   });
 });
