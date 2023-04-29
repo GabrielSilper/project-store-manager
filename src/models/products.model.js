@@ -15,6 +15,18 @@ const getProductByID = async (id) => {
   return product;
 };
 
+const getProductByTerm = async (term) => {
+  // Dica do Vinicius Melo - T27A - usar LIKE CONCAT("%", ?, "%").
+  const [products] = await connection.execute(
+    'SELECT * FROM StoreManager.products WHERE name LIKE CONCAT("%", ?, "%")',
+    [term],
+  );
+  console.log(products);
+  return products;
+};
+
+getProductByTerm('Mar');
+
 const addNewProduct = async ({ name }) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.products ( `name` ) VALUES (?);',
@@ -49,4 +61,5 @@ module.exports = {
   addNewProduct,
   updateProduct,
   deleteProduct,
+  getProductByTerm,
 };

@@ -5,6 +5,7 @@ const { validateProductName } = require('../middlewares/products.middleware');
 const productRouter = express.Router();
 
 productRouter.get('/', productsController.getAllProducts);
+productRouter.get('/search', productsController.getProductByTerm);
 productRouter.get('/:id', productsController.getProductByID);
 productRouter.delete('/:id', productsController.deleteProduct);
 

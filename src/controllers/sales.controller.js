@@ -32,4 +32,10 @@ const updateSale = async (req, res) => {
   return res.status(status).json(message);
 };
 
-module.exports = { addNewSale, getAllSales, getSalesByID, deleteSale, updateSale };
+module.exports = {
+  addNewSale,
+  getAllSales,
+  getSalesByID,
+  deleteSale,
+  updateSale,
+};

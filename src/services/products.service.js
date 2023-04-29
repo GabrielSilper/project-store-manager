@@ -19,6 +19,11 @@ const getProductByID = async (id) => {
   return { type: null, status: 200, message: product };
 };
 
+const getProductByTerm = async (term) => {
+  const products = await productsModel.getProductByTerm(term);
+  return { type: null, status: 200, message: products };
+};
+
 const addNewProduct = async (product) => {
   const insertId = await productsModel.addNewProduct(product);
   const newProduct = await productsModel.getProductByID(insertId);
@@ -52,4 +57,5 @@ module.exports = {
   addNewProduct,
   updateProduct,
   deleteProduct,
+  getProductByTerm,
 };
